@@ -49,12 +49,23 @@ app.use(
 // Cấu hình CORS
 app.use(
   cors({
-    origin: "https://adminbacola.netlify.app",
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:3001",
+      "https://adminbacola.netlify.app",
+      "https://bacolaclient.netlify.app",
+    ],
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-    allowedHeaders: ["Content-Type", "Authorization", "Accept"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "X-Requested-With",
+      "Accept",
+      "Origin",
+    ],
     exposedHeaders: ["Content-Range", "X-Content-Range"],
-    maxAge: 86400, // 24 giờ
+    maxAge: 86400,
   })
 );
 
