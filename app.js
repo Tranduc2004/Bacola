@@ -49,38 +49,26 @@ app.use(
 // Cấu hình CORS
 app.use(
   cors({
-    origin: function (origin, callback) {
-      const allowedOrigins = [
-        process.env.CLIENT_URL,
-        "http://localhost:3000",
-        "http://localhost:3001",
-        "https://adminbacola.netlify.app",
-        "https://bacola.onrender.com",
-      ];
-      // Cho phép requests không có origin (như mobile apps hoặc curl requests)
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1) {
-        console.log("Origin bị chặn:", origin);
-        return callback(
-          new Error("CORS policy không cho phép truy cập từ origin này"),
-          false
-        );
-      }
-      return callback(null, true);
-    },
+    origin: "https://adminbacola.netlify.app",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-    allowedHeaders: [
-      "Content-Type",
-      "Authorization",
-      "X-Requested-With",
-      "Accept",
-      "Origin",
-    ],
+    allowedHeaders: ["Content-Type", "Authorization", "Accept"],
     exposedHeaders: ["Content-Range", "X-Content-Range"],
     maxAge: 86400, // 24 giờ
   })
 );
+
+// Thêm middleware xử lý lỗi CORS
+app.use((err, req, res, next) => {
+  if (err.name === "CORSError") {
+    console.error("CORS Error:", err);
+    return res.status(403).json({
+      success: false,
+      message: "CORS Error: " + err.message,
+    });
+  }
+  next(err);
+});
 
 //middleware
 app.use(bodyParser.json({ limit: "50mb" }));
