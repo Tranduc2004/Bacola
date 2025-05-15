@@ -421,7 +421,7 @@ router.get(
 router.get(
   "/facebook/callback",
   passport.authenticate("facebook", {
-    failureRedirect: "http://localhost:3001/signin",
+    failureRedirect: "https://bacola.onrender.com/signin",
   }),
   async (req, res) => {
     try {
