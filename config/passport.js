@@ -44,7 +44,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "https://bacola.onrender.com/api/auth/google/callback",
+      callbackURL: `${process.env.SERVER_URL}/api/auth/google/callback`,
       scope: ["profile", "email"],
     },
     async (accessToken, refreshToken, profile, done) => {
@@ -95,7 +95,7 @@ passport.use(
     {
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
-      callbackURL: "https://bacola.onrender.com/api/auth/facebook/callback",
+      callbackURL: `${process.env.SERVER_URL}/api/auth/facebook/callback`,
       profileFields: ["id", "emails", "name", "displayName"],
     },
     async (accessToken, refreshToken, profile, done) => {
