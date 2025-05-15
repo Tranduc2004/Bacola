@@ -392,7 +392,7 @@ router.get(
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    failureRedirect: `${process.env.CLIENT_URL}/signin?error=google_auth_failed`,
+    failureRedirect: "/signin?error=google_auth_failed",
   }),
   async (req, res) => {
     try {
@@ -402,7 +402,7 @@ router.get(
       console.log("User data:", req.user);
 
       // Chuyển hướng về client với token
-      const redirectUrl = `${process.env.CLIENT_URL}/googlecallback?token=${token}`;
+      const redirectUrl = `${process.env.CLIENT_URL}/auth/google/callback?token=${token}`;
       console.log("Redirecting to:", redirectUrl);
       res.redirect(redirectUrl);
     } catch (error) {
@@ -421,7 +421,7 @@ router.get(
 router.get(
   "/facebook/callback",
   passport.authenticate("facebook", {
-    failureRedirect: `${process.env.CLIENT_URL}/signin`,
+    failureRedirect: "https://bacolaclient.netlify.app//signin",
   }),
   async (req, res) => {
     try {
@@ -431,7 +431,7 @@ router.get(
       console.log("User data:", req.user);
 
       // Chuyển hướng về client với token
-      const redirectUrl = `${process.env.CLIENT_URL}/facebookcallback?token=${token}`;
+      const redirectUrl = `${process.env.CLIENT_URL}/auth/facebook/callback?token=${token}`;
       console.log("Redirecting to:", redirectUrl);
       res.redirect(redirectUrl);
     } catch (error) {
